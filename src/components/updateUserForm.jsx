@@ -13,7 +13,8 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
 
   const updateMutation = useMutation((newData) => updateUser(formId, newData), {
     onSuccess: async (data) => {
-      //queryClient.setQueryData("users", (old) => [data]);
+      // queryClient.invalidateQueries("users");
+      // queryClient.setQueryData("users", (old) => [data]);
       queryClient.prefetchQuery("users", getUsers);
     },
   });
@@ -23,6 +24,8 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
 
   const { name, avatar, salary, date, email, status } = data.user;
   const [firstname, lastname] = name ? name.split(" ") : formData;
+  if (updateMutation.isSuccess)
+    return <Success message={"Updated Successfully"}></Success>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,9 +35,6 @@ export default function UpdateUserForm({ formId, formData, setFormData }) {
     const updated = Object.assign({}, data, formData, { name: userName });
     updateMutation.mutate(updated);
   };
-
-  if (updateMutation.isSuccess)
-    return <Success message={"Updated Successfully"}></Success>;
 
   return (
     <form className="grid lg:grid-cols-2 w-4/6 gap-4" onSubmit={handleSubmit}>

@@ -1,5 +1,5 @@
-import { BiEdit, BiTrashAlt } from "react-icons/bi";
-import { getUsers } from "@/lib/helper";
+import { BiEdit, BiTrashAlt, BiShow, BiHide } from "react-icons/bi";
+import { getMenus } from "@/lib/menuHelper";
 import { useQuery } from "react-query";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -8,10 +8,10 @@ import {
   deleteAction,
 } from "@/redux/reducer";
 
-export default function Table() {
+export default function MenuTable() {
   useSelector((state) => state);
-  const { isLoading, isError, data, error } = useQuery("users", getUsers);
-  if (isLoading) return <div>Employee is Loading...</div>;
+  const { isLoading, isError, data, error } = useQuery("menus", getMenus);
+  if (isLoading) return <div>Menus are Loading...</div>;
   if (isError) return <div>Got Error {error}</div>;
 
   return (
@@ -19,16 +19,16 @@ export default function Table() {
       <thead>
         <tr className="bg-gray-800">
           <th className="px-16 py-2">
-            <span className="text-gray-200">Name</span>
+            <span className="text-gray-200">Menu</span>
           </th>
           <th className="px-16 py-2">
-            <span className="text-gray-200">Email</span>
+            <span className="text-gray-200">Price</span>
           </th>
           <th className="px-16 py-2">
-            <span className="text-gray-200">Salary</span>
+            <span className="text-gray-200">Valid From</span>
           </th>
           <th className="px-16 py-2">
-            <span className="text-gray-200">Birthday</span>
+            <span className="text-gray-200">Show on Menu</span>
           </th>
           <th className="px-16 py-2">
             <span className="text-gray-200">Status</span>
@@ -39,7 +39,7 @@ export default function Table() {
         </tr>
       </thead>
       <tbody className="bg-gray-200">
-        {data.users.map((obj, i) => {
+        {data.menus.map((obj, i) => {
           return <TableRow {...obj} key={i} />;
         })}
       </tbody>
@@ -47,7 +47,7 @@ export default function Table() {
   );
 }
 
-function TableRow({ _id, name, avatar, email, salary, date, status }) {
+function TableRow({ _id, desc, price, isActive, dateValid, status }) {
   const visible = useSelector((state) => state.app.client.toggleForm);
   const dispatch = useDispatch();
 
@@ -68,31 +68,35 @@ function TableRow({ _id, name, avatar, email, salary, date, status }) {
 
   return (
     <tr className="bg-gray-50 text-center">
-      <td className="px-4 py-2 flex flex-row items-center float-left">
-        <img
-          className=" object-cover h-12 w-12 rounded-full"
-          src={avatar || "#"}
-          alt="avatar"
-        />
-        <span className="text-center ml-1 font-semibold">
-          {name || "Unknown"}
-        </span>
+      <td className="px-4 py-2 w-56 text-left">{desc || "Unknown"}</td>
+      <td className="px-4 py-2">
+        <span>{price || "Unknown"}</span>
       </td>
       <td className="px-4 py-2">
-        <span>{email || "Unknown"}</span>
+        <span>{dateValid || "Unknown"}</span>
+      </td>
+      <td className="px-4 py-2 ">
+        <div className="flex justify-center">
+          {isActive ? (
+            <BiShow className="fill-slate-700" size={24} />
+          ) : (
+            <BiHide className="fill-slate-400" size={24} />
+          )}
+        </div>
+        {/* <span
+          className={`${
+            isActive ? "bg-slate-300 px-3" : "bg-stone-200 px-4"
+          } text-slate-500  py-1 rounded-full`}
+        >
+          <span>{isActive ? "Show" : "Hide"}</span>
+        </span> */}
       </td>
       <td className="px-4 py-2">
-        <span>{salary || "Unknown"}</span>
-      </td>
-      <td className="px-4 py-2">
-        <span>{date || "Unknown"}</span>
-      </td>
-      <td className="px-4 py-2">
-        <button className="cursor">
+        <button>
           <span
             className={`${
-              status == "Active" ? "bg-green-700 px-5" : "bg-red-700 px-3"
-            } text-white  py-1 rounded-full`}
+              status == "Special" ? "bg-slate-300 px-3" : "bg-stone-200 px-3"
+            } text-slate-500 py-1 rounded-full`}
           >
             {status || "Unknown"}
           </span>
@@ -100,7 +104,7 @@ function TableRow({ _id, name, avatar, email, salary, date, status }) {
       </td>
       <td className="px-4 py-2">
         <div className="flex justify-center items-start gap-2">
-          <button className="cursor hover:bg-green-700  rounded-full">
+          <button className="cursor hover:bg-green-700 rounded-full">
             <BiEdit
               className="hover:fill-slate-50 p-[6px]"
               size={35}

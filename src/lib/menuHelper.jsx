@@ -2,9 +2,8 @@
  * get all users
  * @returns
  */
-export const getUsers = async () => {
-  console.log("getAllUsers");
-  const res = await fetch(`/api/users`);
+export const getMenus = async () => {
+  const res = await fetch(`/api/menu`);
   const json = await res.json();
   return json;
 };
@@ -14,9 +13,8 @@ export const getUsers = async () => {
  * @param {*} userId
  * @returns
  */
-export const getUser = async (userId) => {
-  console.log("getUser");
-  const response = await fetch(`/api/users/${userId}`);
+export const getMenu = async (userId) => {
+  const response = await fetch(`/api/menu/${userId}`);
   const json = await response.json();
   if (json) return json;
   return {};
@@ -27,8 +25,7 @@ export const getUser = async (userId) => {
  * @param {*} formData
  * @returns
  */
-export async function addUser(formData) {
-  console.log("createUser");
+export async function addMenu(formData) {
   try {
     const Options = {
       method: "POST",
@@ -36,7 +33,7 @@ export async function addUser(formData) {
       body: JSON.stringify(formData),
     };
 
-    const response = await fetch(`api/users`, Options);
+    const response = await fetch(`api/menu`, Options);
     const json = await response.json();
     return json;
   } catch (error) {
@@ -50,7 +47,7 @@ export async function addUser(formData) {
  * @param {*} formData
  * @returns
  */
-export async function updateUser(userId, formData) {
+export async function updateMenu(userId, formData) {
   console.log("updateUser");
   const Options = {
     method: "PUT",
@@ -58,7 +55,7 @@ export async function updateUser(userId, formData) {
     body: JSON.stringify(formData),
   };
 
-  const response = await fetch(`api/users/${userId}`, Options);
+  const response = await fetch(`api/menu/${userId}`, Options);
   const json = await response.json();
   return json;
 }
@@ -68,14 +65,14 @@ export async function updateUser(userId, formData) {
  * @param {userId} userId
  * @returns
  */
-export async function deleteUser(userId) {
+export async function deleteMenu(userId) {
   console.log("deleteUser");
   const Options = {
     method: "DELETE",
     headers: { "Content-Type": "application/json" }, // is this needed?
   };
 
-  const response = await fetch(`api/users/${userId}`, Options);
+  const response = await fetch(`api/menu/${userId}`, Options);
   const json = await response.json();
   return json;
 }

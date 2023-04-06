@@ -14,8 +14,7 @@ export default function AddUserForm({ formData, setFormData }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (Object.keys(formData).length == 0)
-      return console.log("Don't have Form Data");
+    if (Object.keys(formData).length == 0) return console.log("No User Data");
     let { firstname, lastname, email, salary, date, status } = formData;
 
     const model = {
