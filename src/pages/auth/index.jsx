@@ -6,7 +6,7 @@ import { BiLogInCircle } from "react-icons/bi";
 const index = () => {
   const router = useRouter();
 
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { isLoaded, user } = useUser();
 
   useEffect(() => {
     if (isLoaded) {

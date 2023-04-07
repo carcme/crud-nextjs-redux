@@ -12,8 +12,10 @@ const MenuSpecials = () => {
 
   return (
     <section className="flex flex-col items-center">
-      <h2 className="text-3xl px-2 max-sm:text-lg">Wochenend-Spezialmenü</h2>
-      <h3 className="py-4 px-2 text-lg max-sm:text-sm">
+      <h2 className="px-2 text-center text-3xl max-sm:text-lg">
+        Wochenend-Spezialmenü
+      </h2>
+      <h3 className="px-2 pb-4 pt-1 text-center text-lg max-sm:text-sm">
         zwischen 12:00 und 15:00 Uhr
       </h3>
 

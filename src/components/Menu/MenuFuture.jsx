@@ -12,7 +12,7 @@ const MenuFuture = () => {
 
   return (
     <section className="flex flex-col items-center">
-      <h2 className="text-3xl pt-16 px-2 max-sm:text-lg py-4">
+      <h2 className="px-2 py-4 pt-16 text-center text-3xl max-sm:text-lg">
         Das Spezialmenü der nächsten Woche
       </h2>
       <div>

@@ -12,10 +12,10 @@ const MenuOriginals = () => {
 
   return (
     <section className="flex flex-col items-center">
-      <h2 className="text-3xl pt-16 px-2 max-sm:text-lg">
+      <h2 className="px-2 pt-16 text-center text-3xl max-sm:text-lg">
         Das „Immer“ verfügbare Menü
       </h2>
-      <h3 className="py-4 px-2 text-lg max-sm:text-sm">
+      <h3 className="px-2 pb-4 pt-1 text-center text-lg max-sm:text-sm">
         Bis zum Küchenschluss
       </h3>
       <div className=" justify-center">
